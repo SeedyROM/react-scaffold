@@ -12,6 +12,7 @@ const { createComponents } = require('./fs')
  * Immediately invokes an anonymous function to
  * generate some ASCii art.
 */
+/* istanbul ignore next */
 const asciiHeader = (() => {
     const asciiArt = figlet.textSync('RS', 'Basic')
     return chalk.magenta(asciiArt)
@@ -20,7 +21,6 @@ const asciiHeader = (() => {
 /**
  * Parse the arguments with minimist and then call {@link handleArgs}.
  * @param {Array} args - A list of strings to be parsed.
- *
  */
 const handleArgs = (args) => {
     const parsedArgs = parseArgs(args)
@@ -58,8 +58,18 @@ const handleKeywords = (keywords) => {
     }
 }
 
-
-module.exports = (args) => {
+/**
+ * The programs entry point.
+ * @param {Array} args - List of arguments. 
+ */
+const run = (args, options) => {
     console.log(asciiHeader)
     handleArgs(args)
+}
+
+module.exports = {
+    run,
+    handleArgs,
+    handleArg,
+    handleKeywords,
 }
